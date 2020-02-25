@@ -1,5 +1,18 @@
 #include "includes/push_swap.h"
 
+void	print_stacks(t_stack *a, t_stack *b)
+{
+	for (int i = 0; i < a->size || i < b->size; i++)
+	{
+		if (i < a->size)
+			printf("%d [%d]  |  ", a->nums[i], a->stats[i]);
+		if (i < b->size)
+			printf("%d [%d]", b->nums[i], b->stats[i]);
+		printf("\n");
+	}
+	printf("================\n");		
+}
+
 int		do_long_list(t_stack *a, signed char **stats, int num)
 {
 	int		i;
@@ -48,15 +61,69 @@ int		do_longest_list(t_stack *a, int old_len)
 	return (len);
 }
 
-void	do_main_algorithm(t_stack *a, t_stack *b)
+int		check_status(signed char *stats, int size)
 {
 	int		i;
 
 	i = 0;
+	while (i++ < size)
+		if (!stats[i - 1])
+			return (0);
+	return (1);
+}
+
+int		find_min(int *nums, int size)
+{
+	int		min;
+	int		i;
+
+	min = 0;
+	i = 1;
+	while (i < size)
+	{
+		if (nums[i] < nums[min])
+			min = i;
+		i++;
+	}
+	return (min);
+
+}
+
+void	do_main_algorithm(t_stack *a, t_stack *b)
+{
+	int		i;
+	int		len;
+	int		min;
+
+	i = 0;
 	while (i++ < a->size)
 		a->stats[i] = 0;
-	do_longest_list(a, 0);
-	b->size += 0;
+	len = do_longest_list(a, 0);
+	while (!check_status(a->stats, a->size))
+	{
+		print_stacks(a, b);
+		do_comand(a, b, "sa");
+		if (do_longest_list(a, len) <= len)
+			do_comand(a, b, "sa");
+		else
+			continue ;
+		if (!a->stats[0])
+			do_comand(a, b, "pb");
+		else
+			do_comand(a, b, "ra");
+	}
+	while (b->size)
+	{
+		print_stacks(a, b);
+		i = choose_element(a, b);
+		prepare_stack_a(a, b->nums[i]);
+		prepare_stack_b(b, b->nums[i]);
+		do_comand(a, b, "pa");
+	}
+	print_stacks(a, b);
+	min = find_min(a->nums, a->size);
+	prepare_stack_b(a, min);
+	print_stacks(a, b);
 }
 
 int		main(int argc, char **argv)

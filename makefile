@@ -17,7 +17,7 @@ FLAGS = -Wextra -Wall -Werror
 LIB_OBJS = ft_putstr.o ft_putchar.o ft_atoi.o ft_strlen.o ft_isdigit.o \
 	ft_strcmp.o ft_strcpy.o ft_strsplit.o ft_strncpy.o
 
-OBJS = get_next_line.o comands.o check.o
+OBJS = get_next_line.o comands.o check.o algorithm.o
 
 CH_MAIN = checker.o
 
