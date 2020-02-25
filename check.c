@@ -32,24 +32,25 @@ t_stack	*make_stack(int argc, char **argv)
 
 	a = (t_stack*) malloc(sizeof(t_stack));
 	a->nums = (int*) malloc(sizeof(int) * argc);
+	a->stats = (signed char*) malloc(sizeof(signed char) * argc);
 	a->size = argc;
 	if (!argv)
 		a->size = 0;
 	i = 0;
-	while (i < argc)
+	while (i++ < argc)
 	{
-		if (argv && check_str(argv[i]))
+		if (argv && check_str(argv[i - 1]))
 		{
+			ft_putstr(argv[i - 1]);
 			free(a->nums);
 			free(a);
 			ft_putstr("Error\n");
 			return (0);
 		}
 		if (!argv)
-			a->nums[i] = 0;
+			a->nums[i - 1] = 0;
 		else
-			a->nums[i] = ft_atoi(argv[i]);
-		i++;
+			a->nums[i - 1] = ft_atoi(argv[i - 1]);
 	}
 	return (a);
 }
@@ -106,11 +107,13 @@ void	free_stacks(t_stack **a, t_stack **b, char ***tab, int argc)
 	if (a)
 	{
 		free((*a)->nums);
+		free((*a)->stats);
 		free(*a);
 	}
 	if (b)
 	{
 		free((*b)->nums);
+		free((*b)->stats);
 		free(*b);
 	}
 	if (argc == 2)

@@ -58,10 +58,9 @@ int		main(int argc, char **argv)
 	}
 	if (argc == 1 || count == 0 || !(a = check_and_make_stack(count, tab)))
 		return (1);
-	free_stacks(0, 0, &tab, argc);
 	b = make_stack(count, 0);
 	if (!check_nums_in_stack(a))
 		read_comands_write_result(a, b, count);
-	free_stacks(&a, &b, 0, 0);
+	free_stacks(&a, &b, &tab, argc);
 	return (0);
 }

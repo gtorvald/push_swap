@@ -8,7 +8,7 @@
 typedef struct	s_stack
 {
 	int			*nums;
-	int			*stats;
+	signed char	*stats;
 	int			size;
 }				t_stack;
 
