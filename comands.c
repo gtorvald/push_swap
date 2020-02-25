@@ -65,7 +65,7 @@ void	do_comand_rrarrb(t_stack *a, t_stack *b)
 	if (a->size < 2)
 		return ;
 	num = a->nums[a->size - 1];
-	i = a->size;
+	i = a->size - 1;
 	while (i > 0)
 	{
 		a->nums[i] = a->nums[i - 1];

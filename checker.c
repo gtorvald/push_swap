@@ -1,4 +1,5 @@
 #include "includes/checker.h"
+#include <stdio.h>
 
 int		check_nums(t_stack *a, t_stack *b, int count)
 {
@@ -22,12 +23,14 @@ void	read_comands_write_result(t_stack *a, t_stack *b, int count)
 
 	comand = NULL;
 	while (get_next_line(0, &comand))
+	{
 		if (do_comand(a, b, comand))
 		{
 			ft_putstr("Error\n");
 			free(comand);
 			return ;
 		}
+	}
 	if (comand)
 		free(comand);
 	if (check_nums(a, b, count))

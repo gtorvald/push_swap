@@ -10,19 +10,19 @@ int		check_str(char *str)
 		return (1);
 	flag = *str == '-';
 	str += flag;
-	if (str[0] <= '2')
-		if (str[1] <= '1')
-			if (str[2] <= '4')
-				if (str[3] <= '7')
-					if (str[4] <= '4')
-						if (str[5] <= '8')
-							if (str[6] <= '3')
-								if (str[7] <= '6')
-									if (str[8] <= '4')
-										if (str[9] <= '7'
-										|| (flag && str[9] <= '8'))
-											return (0);
-	return (1);
+	if (str[0] >= '2')
+		if (str[1] >= '1')
+			if (str[2] >= '4')
+				if (str[3] >= '7')
+					if (str[4] >= '4')
+						if (str[5] >= '8')
+							if (str[6] >= '3')
+								if (str[7] >= '6')
+									if (str[8] >= '4')
+										if (str[9] > '7'
+										|| (flag && str[9] > '8'))
+											return (1);
+	return (0);
 }
 
 t_stack	*make_stack(int argc, char **argv)
