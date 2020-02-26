@@ -93,7 +93,7 @@ void	do_comand_rrarrb(t_stack *a, t_stack *b)
 		do_comand_rrarrb(b, 0);
 }
 
-int		do_comand(t_stack *a, t_stack *b, char *comand)
+int		do_comand(t_stack *a, t_stack *b, char *comand, int flag)
 {
 	if (!ft_strcmp(comand, "sa"))
 		do_comand_sasb(a, 0);
@@ -119,5 +119,10 @@ int		do_comand(t_stack *a, t_stack *b, char *comand)
 		do_comand_rrarrb(a, b);
 	else
 		return (1);
+	if (flag)
+	{
+		ft_putstr(comand);
+		ft_putchar('\n');
+	}
 	return (0);
 }

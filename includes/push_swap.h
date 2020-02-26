@@ -6,7 +6,8 @@
 
 int		choose_element(t_stack *a, t_stack *b);
 void	prepare_stack_a(t_stack *a, int num);
-void	prepare_stack_b(t_stack *b, int i);
+void	prepare_stack_b(t_stack *b, int i, int flag);
+int		find_min(int *nums, int size);
 
 
 #endif

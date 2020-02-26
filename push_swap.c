@@ -72,27 +72,11 @@ int		check_status(signed char *stats, int size)
 	return (1);
 }
 
-int		find_min(int *nums, int size)
-{
-	int		min;
-	int		i;
-
-	min = 0;
-	i = 1;
-	while (i < size)
-	{
-		if (nums[i] < nums[min])
-			min = i;
-		i++;
-	}
-	return (min);
-
-}
-
 void	do_main_algorithm(t_stack *a, t_stack *b)
 {
 	int		i;
 	int		len;
+	int		len1;
 	int		min;
 
 	i = 0;
@@ -101,29 +85,29 @@ void	do_main_algorithm(t_stack *a, t_stack *b)
 	len = do_longest_list(a, 0);
 	while (!check_status(a->stats, a->size))
 	{
-		print_stacks(a, b);
-		do_comand(a, b, "sa");
-		if (do_longest_list(a, len) <= len)
-			do_comand(a, b, "sa");
+		do_comand(a, b, "sa", 0);
+		if ((len1 = do_longest_list(a, len)) <= len)
+			do_comand(a, b, "sa", 0);
 		else
+		{
+			printf("sa\n");
+			len = len1;
 			continue ;
+		}
 		if (!a->stats[0])
-			do_comand(a, b, "pb");
+			do_comand(a, b, "pb", 1);
 		else
-			do_comand(a, b, "ra");
+			do_comand(a, b, "ra", 1);
 	}
 	while (b->size)
 	{
-		print_stacks(a, b);
 		i = choose_element(a, b);
 		prepare_stack_a(a, b->nums[i]);
-		prepare_stack_b(b, b->nums[i]);
-		do_comand(a, b, "pa");
+		prepare_stack_b(b, i, 0);
+		do_comand(a, b, "pa", 1);
 	}
-	print_stacks(a, b);
 	min = find_min(a->nums, a->size);
-	prepare_stack_b(a, min);
-	print_stacks(a, b);
+	prepare_stack_b(a, min, 1);
 }
 
 int		main(int argc, char **argv)

@@ -1,10 +1,27 @@
 #include "includes/push_swap.h"
 
+int		find_min(int *nums, int size)
+{
+	int		min;
+	int		i;
+
+	min = 0;
+	i = 1;
+	while (i < size)
+	{
+		if (nums[i] < nums[min])
+			min = i;
+		i++;
+	}
+	return (min);
+
+}
+
 int		steps_in_b(int size, int i)
 {
 	if (i > size - i)
 		return (size - i);
-	return(i + 1);
+	return(i);
 }
 
 int		steps_in_a(t_stack *a, int num)
@@ -17,8 +34,8 @@ int		steps_in_a(t_stack *a, int num)
 		i = a->size - 1;
 		while (a->nums[i] > num && i >= 0)
 			i--;
-		if (i == 0)
-			return (0);
+		if (i == -1)
+			return (find_min(a->nums, a->size));
 	}
 	else
 	{
@@ -78,13 +95,13 @@ void	prepare_stack_a(t_stack *a, int num)
 	steps = steps_in_a(a, num);
 	if (i + 1 > a->size - i - 1)
 		while (j++ < steps)
-			do_comand(a, 0, "rra");
+			do_comand(a, 0, "rra", 1);
 	else
 		while (j++ < steps)
-			do_comand(a, 0, "ra");
+			do_comand(a, 0, "ra", 1);
 }
 
-void	prepare_stack_b(t_stack *b, int i)
+void	prepare_stack_b(t_stack *b, int i, int flag)
 {
 	int		steps;
 	int		j;
@@ -93,8 +110,14 @@ void	prepare_stack_b(t_stack *b, int i)
 	j = 0;
 	if (i > b->size - i)
 		while (j++ < steps)
-			do_comand(0, b, "rrb");
+			if (flag)
+				do_comand(b, 0, "rra", 1);
+			else
+				do_comand(0, b, "rrb", 1);
 	else
 		while (j++ < steps)
-			do_comand(0, b, "rb");
+			if (flag)
+				do_comand(b, 0, "ra", 1);
+			else
+				do_comand(0, b, "rb", 1);
 }

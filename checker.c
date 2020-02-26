@@ -17,6 +17,19 @@ int		check_nums(t_stack *a, t_stack *b, int count)
 	return (0);
 }
 
+void	print_stacks(t_stack *a, t_stack *b)
+{
+	for (int i = 0; i < a->size || i < b->size; i++)
+	{
+		if (i < a->size)
+			printf("%d [%d]  |  ", a->nums[i], a->stats[i]);
+		if (i < b->size)
+			printf("%d [%d]", b->nums[i], b->stats[i]);
+		printf("\n");
+	}
+	printf("================\n");		
+}
+
 void	read_comands_write_result(t_stack *a, t_stack *b, int count)
 {
 	char	*comand;
@@ -24,15 +37,18 @@ void	read_comands_write_result(t_stack *a, t_stack *b, int count)
 	comand = NULL;
 	while (get_next_line(0, &comand))
 	{
-		if (do_comand(a, b, comand))
+		if (do_comand(a, b, comand, 0))
 		{
 			ft_putstr("Error\n");
 			free(comand);
 			return ;
 		}
+		printf("(%s)\n", comand);
+		print_stacks(a, b);
 	}
 	if (comand)
 		free(comand);
+	print_stacks(a, b);
 	if (check_nums(a, b, count))
 		ft_putstr("KO\n");
 	else
