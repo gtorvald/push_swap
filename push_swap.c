@@ -90,7 +90,7 @@ void	do_main_algorithm(t_stack *a, t_stack *b)
 			do_comand(a, b, "sa", 0);
 		else
 		{
-			printf("sa\n");
+			ft_printf("sa\n");
 			len = len1;
 			continue ;
 		}

@@ -33,8 +33,10 @@ void	print_stacks(t_stack *a, t_stack *b)
 void	read_comands_write_result(t_stack *a, t_stack *b, int count)
 {
 	char	*comand;
+	int		i;
 
 	comand = NULL;
+	i = 0;
 	while (get_next_line(0, &comand))
 	{
 		if (do_comand(a, b, comand, 0))
@@ -43,7 +45,7 @@ void	read_comands_write_result(t_stack *a, t_stack *b, int count)
 			free(comand);
 			return ;
 		}
-		printf("(%s)\n", comand);
+		printf("(%s) - %d\n", comand, i++);
 		print_stacks(a, b);
 	}
 	if (comand)

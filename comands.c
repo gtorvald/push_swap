@@ -1,5 +1,6 @@
 #include "includes/get_next_line.h"
 #include "includes/checker.h"
+#include <stdio.h>
 
 void	do_comand_sasb(t_stack *a, t_stack *b)
 {
@@ -120,9 +121,6 @@ int		do_comand(t_stack *a, t_stack *b, char *comand, int flag)
 	else
 		return (1);
 	if (flag)
-	{
-		ft_putstr(comand);
-		ft_putchar('\n');
-	}
+		ft_printf("%s\n", comand);
 	return (0);
 }

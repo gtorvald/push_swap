@@ -94,4 +94,6 @@ int					ft_islower(int c);
 int					ft_ispunct(int c);
 int					ft_isspace(int c);
 
+int					ft_printf(const char *restrict format, ...);
+
 #endif

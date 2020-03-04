@@ -14,9 +14,6 @@ CC = gcc
 
 FLAGS = -Wextra -Wall -Werror
 
-LIB_OBJS = ft_putstr.o ft_putchar.o ft_atoi.o ft_strlen.o ft_isdigit.o \
-	ft_strcmp.o ft_strcpy.o ft_strsplit.o ft_strncpy.o
-
 OBJS = get_next_line.o comands.o check.o algorithm.o
 
 CH_MAIN = checker.o
@@ -31,9 +28,9 @@ PUSH = push_swap
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIB_OBJS) $(CH_MAIN) $(PSH_MAIN)
-	$(CC) $(FLAGS) $(LIB_OBJS) $(OBJS) $(CH_MAIN) -o $(CHECK)
-	$(CC) $(FLAGS) $(LIB_OBJS) $(OBJS) $(PSH_MAIN) -o $(PUSH)
+$(NAME): $(OBJS) $(CH_MAIN) $(PSH_MAIN)
+	$(CC) $(FLAGS) $(OBJS) $(CH_MAIN) -L./libft -lftprintf -o $(CHECK)
+	$(CC) $(FLAGS) $(OBJS) $(PSH_MAIN) -L./libft -lftprintf -o $(PUSH)
 
 ft_%.o : libft/ft_%.c
 	$(CC) $(FLAGS) -c $<
@@ -45,7 +42,7 @@ ft_%.o : libft/ft_%.c
 	$(CC) $(FLAGS) -c $<
 
 clean:
-	-rm -f $(OBJS) $(LIB_OBJS) $(CH_MAIN) $(PSH_MAIN)
+	-rm -f $(OBJS) $(CH_MAIN) $(PSH_MAIN)
 
 fclean: clean
 	-rm -f $(CHECK)
