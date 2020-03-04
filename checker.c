@@ -1,5 +1,4 @@
 #include "includes/checker.h"
-#include <stdio.h>
 
 int		check_nums(t_stack *a, t_stack *b, int count)
 {
@@ -22,12 +21,12 @@ void	print_stacks(t_stack *a, t_stack *b)
 	for (int i = 0; i < a->size || i < b->size; i++)
 	{
 		if (i < a->size)
-			printf("%d [%d]  |  ", a->nums[i], a->stats[i]);
+			ft_printf("%d [%d]  |  ", a->nums[i], a->stats[i]);
 		if (i < b->size)
-			printf("%d [%d]", b->nums[i], b->stats[i]);
-		printf("\n");
+			ft_printf("%d [%d]", b->nums[i], b->stats[i]);
+		ft_printf("\n");
 	}
-	printf("================\n");		
+	ft_printf("================\n");		
 }
 
 void	read_comands_write_result(t_stack *a, t_stack *b, int count)
@@ -45,7 +44,7 @@ void	read_comands_write_result(t_stack *a, t_stack *b, int count)
 			free(comand);
 			return ;
 		}
-		printf("(%s) - %d\n", comand, i++);
+		ft_printf("(%s) - %d\n", comand, i++);
 		print_stacks(a, b);
 	}
 	if (comand)

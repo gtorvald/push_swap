@@ -1,6 +1,5 @@
 #include "includes/get_next_line.h"
 #include "includes/checker.h"
-#include <stdio.h>
 
 void	do_comand_sasb(t_stack *a, t_stack *b)
 {
