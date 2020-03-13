@@ -37,19 +37,14 @@ void	read_comands_write_result(t_stack *a, t_stack *b, int count)
 	comand = NULL;
 	i = 0;
 	while (get_next_line(0, &comand))
-	{
 		if (do_comand(a, b, comand, 0))
 		{
 			ft_putstr("Error\n");
 			free(comand);
 			return ;
 		}
-		ft_printf("(%s) - %d\n", comand, i++);
-		print_stacks(a, b);
-	}
 	if (comand)
 		free(comand);
-	print_stacks(a, b);
 	if (check_nums(a, b, count))
 		ft_putstr("KO\n");
 	else

@@ -69,8 +69,6 @@ t_stack	*check_and_make_stack(int argc, char **argv)
 			while (argv[i][j] != '\0')
 				if (!ft_isdigit(argv[i][j++]))
 				{
-					if (argv[i][j - 1] == '-' && j - 1 == 0)
-						continue ;
 					ft_putstr("Error\n");
 					return (0);
 				}
