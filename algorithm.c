@@ -1,22 +1,5 @@
 #include "includes/push_swap.h"
 
-int		find_min(int *nums, int size)
-{
-	int		min;
-	int		i;
-
-	min = 0;
-	i = 1;
-	while (i < size)
-	{
-		if (nums[i] < nums[min])
-			min = i;
-		i++;
-	}
-	return (min);
-
-}
-
 int		steps_in_b(int size, int i)
 {
 	if (i > size - i)

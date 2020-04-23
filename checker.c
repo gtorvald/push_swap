@@ -37,12 +37,19 @@ void	read_comands_write_result(t_stack *a, t_stack *b, int count)
 	comand = NULL;
 	i = 0;
 	while (get_next_line(0, &comand))
-		if (do_comand(a, b, comand, 0))
+		if (ft_strcmp(comand, "sa") && ft_strcmp(comand, "sb") &&
+		ft_strcmp(comand, "ss") && ft_strcmp(comand, "pa") &&
+		ft_strcmp(comand, "pb") && ft_strcmp(comand, "ra") &&
+		ft_strcmp(comand, "rb") && ft_strcmp(comand, "rr") &&
+		ft_strcmp(comand, "rra") && ft_strcmp(comand, "rrb") &&
+		ft_strcmp(comand, "rrr"))
 		{
 			ft_putstr("Error\n");
 			free(comand);
 			return ;
 		}
+		else
+			do_comand(a, b, comand, 0);
 	if (comand)
 		free(comand);
 	if (check_nums(a, b, count))

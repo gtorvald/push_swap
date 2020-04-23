@@ -14,7 +14,7 @@ CC = gcc
 
 FLAGS = -Wextra -Wall -Werror
 
-OBJS = get_next_line.o comands.o check.o algorithm.o
+OBJS = get_next_line.o comands.o check.o algorithm.o algorithm_help.o
 
 CH_MAIN = checker.o
 

@@ -1,87 +1,9 @@
 #include "includes/push_swap.h"
 
-void	print_stacks(t_stack *a, t_stack *b)
-{
-	for (int i = 0; i < a->size || i < b->size; i++)
-	{
-		if (i < a->size)
-			printf("%d [%d]  |  ", a->nums[i], a->stats[i]);
-		if (i < b->size)
-			printf("%d [%d]", b->nums[i], b->stats[i]);
-		printf("\n");
-	}
-	printf("================\n");		
-}
-
-int		do_long_list(t_stack *a, signed char **stats, int num)
-{
-	int		i;
-	int		len;
-
-	len = 1;
-	i = 0;
-	while (i < a->size)
-		(*stats)[i++] = 0;
-	(*stats)[num] = 1;
-	i = num + 1;
-	while (i < a->size)
-	{
-		if (a->nums[i] > a->nums[num])
-		{
-			(*stats)[i] = 1;
-			len++;
-			num = i;
-		}
-		i++;
-	}
-	return (len);
-}
-
-int		do_longest_list(t_stack *a, int old_len)
-{
-	int			i;
-	signed char	*stats;
-	int			len1;
-	int			len;
-
-	len = old_len;
-	i = 0;
-	while (i < a->size - len)
-	{
-		stats = malloc(sizeof(signed char) * a->size);
-		if ((len1 = do_long_list(a, &stats, i++)) > len)
-		{
-			free(a->stats);
-			a->stats = stats;
-			len = len1;
-		}
-		else
-			free(stats);
-	}
-	return (len);
-}
-
-int		check_status(signed char *stats, int size)
-{
-	int		i;
-
-	i = 0;
-	while (i++ < size)
-		if (!stats[i - 1])
-			return (0);
-	return (1);
-}
-
-void	do_main_algorithm(t_stack *a, t_stack *b)
-{
-	int		i;
+void	part_of_main_algorithm(t_stack *a, t_stack *b) {
 	int		len;
 	int		len1;
-	int		min;
 
-	i = 0;
-	while (i++ < a->size)
-		a->stats[i] = 0;
 	len = do_longest_list(a, 0);
 	while (!check_status(a->stats, a->size))
 	{
@@ -99,6 +21,17 @@ void	do_main_algorithm(t_stack *a, t_stack *b)
 		else
 			do_comand(a, b, "ra", 1);
 	}
+}
+
+void	do_main_algorithm(t_stack *a, t_stack *b)
+{
+	int		i;
+	int		min;
+
+	i = 0;
+	while (i++ < a->size)
+		a->stats[i] = 0;
+	part_of_main_algorithm(a, b);
 	while (b->size)
 	{
 		i = choose_element(a, b);

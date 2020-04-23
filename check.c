@@ -42,8 +42,7 @@ t_stack	*make_stack(int argc, char **argv)
 		if (argv && check_str(argv[i - 1]))
 		{
 			ft_putstr(argv[i - 1]);
-			free(a->nums);
-			free(a);
+			free_stacks(&a, 0, 0, 0);
 			ft_putstr("Error\n");
 			return (0);
 		}
