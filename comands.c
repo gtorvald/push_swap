@@ -29,19 +29,17 @@ void	do_comand_papb(t_stack *a, t_stack *b)
 	num = b->nums[0];
 	stat = b->stats[0];
 	i = 0;
-	while (i < b->size - 1)
+	while (i++ < b->size - 1)
 	{
-		b->nums[i] = b->nums[i + 1];
-		b->stats[i] = b->stats[i + 1];
-		i++;
+		b->nums[i - 1] = b->nums[i];
+		b->stats[i - 1] = b->stats[i];
 	}
 	b->size--;
 	i = a->size;
-	while (i > 0)
+	while (i-- > 0)
 	{
-		a->nums[i] = a->nums[i - 1];
-		a->stats[i] = a->stats[i - 1];
-		i--;
+		a->nums[i + 1] = a->nums[i];
+		a->stats[i + 1] = a->stats[i];
 	}
 	a->nums[0] = num;
 	a->stats[0] = stat;
@@ -93,7 +91,7 @@ void	do_comand_rrarrb(t_stack *a, t_stack *b)
 		do_comand_rrarrb(b, 0);
 }
 
-int		do_comand(t_stack *a, t_stack *b, char *comand, int flag)
+void	do_comand(t_stack *a, t_stack *b, char *comand, int flag)
 {
 	if (!ft_strcmp(comand, "sa"))
 		do_comand_sasb(a, 0);
@@ -117,9 +115,6 @@ int		do_comand(t_stack *a, t_stack *b, char *comand, int flag)
 		do_comand_rrarrb(b, 0);
 	else if (!ft_strcmp(comand, "rrr"))
 		do_comand_rrarrb(a, b);
-	else
-		return (1);
 	if (flag)
 		ft_printf("%s\n", comand);
-	return (0);
 }
