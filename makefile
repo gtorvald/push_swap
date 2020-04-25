@@ -26,17 +26,13 @@ CHECK = checker
 
 PUSH = push_swap
 
+USE_LIB = ./libft/libftprintf.a
+
 all: $(NAME)
 
 $(NAME): $(OBJS) $(CH_MAIN) $(PSH_MAIN)
-	$(CC) $(FLAGS) $(OBJS) $(CH_MAIN) -L./libft -lftprintf -o $(CHECK)
-	$(CC) $(FLAGS) $(OBJS) $(PSH_MAIN) -L./libft -lftprintf -o $(PUSH)
-
-ft_%.o : libft/ft_%.c
-	$(CC) $(FLAGS) -c $<
-
-#ftb_%.o : libftbonus/ftb_%.c
-#	$(CC) $(FLAGS) -c $<
+	$(CC) $(FLAGS) $(OBJS) $(CH_MAIN) $(USE_LIB) -o $(CHECK)
+	$(CC) $(FLAGS) $(OBJS) $(PSH_MAIN) $(USE_LIB) -o $(PUSH)
 
 %.o : %.c
 	$(CC) $(FLAGS) -c $<
