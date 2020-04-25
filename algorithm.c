@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gtorvald <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/23 14:58:53 by gtorvald          #+#    #+#             */
+/*   Updated: 2019/09/23 14:58:54 by gtorvald         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/push_swap.h"
 
 int		steps_in_b(int size, int i)
 {
 	if (i > size - i)
 		return (size - i);
-	return(i);
+	return (i);
 }
 
 int		steps_in_a(t_stack *a, int num)
@@ -60,7 +72,7 @@ void	prepare_stack_a(t_stack *a, int num)
 	int		i;
 	int		steps;
 	int		j;
-	
+
 	if (a->nums[0] > num)
 	{
 		i = a->size - 1;

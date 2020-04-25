@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gtorvald <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/23 14:58:53 by gtorvald          #+#    #+#             */
+/*   Updated: 2019/09/23 14:58:54 by gtorvald         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/push_swap.h"
 
-void	part_of_main_algorithm(t_stack *a, t_stack *b) {
+void	part_of_main_algorithm(t_stack *a, t_stack *b)
+{
 	int		len;
 	int		len1;
 

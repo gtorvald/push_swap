@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gtorvald <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/23 14:58:53 by gtorvald          #+#    #+#             */
+/*   Updated: 2019/09/23 14:58:54 by gtorvald         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/checker.h"
 
 int		check_str(char *str)
@@ -30,9 +42,9 @@ t_stack	*make_stack(int argc, char **argv)
 	t_stack	*a;
 	int		i;
 
-	a = (t_stack*) malloc(sizeof(t_stack));
-	a->nums = (int*) malloc(sizeof(int) * argc);
-	a->stats = (signed char*) malloc(sizeof(signed char) * argc);
+	a = (t_stack*)malloc(sizeof(t_stack));
+	a->nums = (int*)malloc(sizeof(int) * argc);
+	a->stats = (signed char*)malloc(sizeof(signed char) * argc);
 	a->size = argc;
 	if (!argv)
 		a->size = 0;

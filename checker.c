@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gtorvald <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/23 14:58:53 by gtorvald          #+#    #+#             */
+/*   Updated: 2019/09/23 14:58:54 by gtorvald         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/checker.h"
 
 int		check_nums(t_stack *a, t_stack *b, int count)
@@ -14,19 +26,6 @@ int		check_nums(t_stack *a, t_stack *b, int count)
 		i++;
 	}
 	return (0);
-}
-
-void	print_stacks(t_stack *a, t_stack *b)
-{
-	for (int i = 0; i < a->size || i < b->size; i++)
-	{
-		if (i < a->size)
-			ft_printf("%d [%d]  |  ", a->nums[i], a->stats[i]);
-		if (i < b->size)
-			ft_printf("%d [%d]", b->nums[i], b->stats[i]);
-		ft_printf("\n");
-	}
-	ft_printf("================\n");		
 }
 
 void	read_comands_write_result(t_stack *a, t_stack *b, int count)
