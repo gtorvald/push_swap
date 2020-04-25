@@ -20,11 +20,11 @@
 # define EOF (-1)
 
 typedef struct		s_buff
- {
- 	char			buff[BUFF_SIZE + 1];
- 	int				fd;
- 	struct s_buff	*next;
- }					t_buff;
+{
+	char			buff[BUFF_SIZE + 1];
+	int				fd;
+	struct s_buff	*next;
+}					t_buff;
 
 int					get_next_line(const int fd, char **line);
 

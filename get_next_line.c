@@ -12,10 +12,6 @@
 
 #include "includes/get_next_line.h"
 
-#include <stdio.h>
-
-static t_buff	*s_buff;
-
 void			ft_lstcreat(t_buff **buf, int fd, char *str)
 {
 	t_buff	*help;
@@ -46,28 +42,30 @@ void			ft_lstdelet(t_buff **buf, int fd)
 	if (help->fd == fd)
 	{
 		*buf = (*buf)->next;
-		free(help);
+		if (help)
+			free(help);
 		return ;
 	}
 	while (help->next->fd != fd)
 		help = help->next;
 	del = help->next;
 	help->next = del->next;
-	free(del);
+	if (del)
+		free(del);
 }
 
-int				out_buff(const int fd, char **line)
+int				out_buff(const int fd, char **line, t_buff **g_buff)
 {
 	t_buff	*help;
 	int		i;
 	char	copy[BUFF_SIZE];
 	char	c;
 
-	help = s_buff;
+	help = *g_buff;
 	while (help)
 	{
 		if (help->fd == fd)
-			break;
+			break ;
 		help = help->next;
 	}
 	i = 0;
@@ -81,20 +79,16 @@ int				out_buff(const int fd, char **line)
 	ft_strcpy(copy, help->buff + i + (c != '\0'));
 	ft_strcpy(help->buff, copy);
 	if (!ft_strcmp(help->buff, ""))
-		ft_lstdelet(&s_buff, fd);
+		ft_lstdelet(g_buff, fd);
 	return (c == '\n' || c == EOF);
 }
 
-char			*in_buff(const int fd, char **line, char *str, int *j)
+char			*in_buff(const int fd, char **line, char *str, t_buff **g_buff)
 {
 	char	*copy;
 	int		i;
 	int		size;
 
-	str[*j] = '\0';
-	*j = 0;
-	while (str[*j] != '\n' && str[*j] != EOF)
-		(*j)++;
 	i = 0;
 	while (str[i] != '\n' && str[i] != EOF && str[i] != '\0')
 		i++;
@@ -105,30 +99,32 @@ char			*in_buff(const int fd, char **line, char *str, int *j)
 	ft_strncpy(copy + size, str, i);
 	if (*line)
 		free(*line);
-	if (i + 1 < (int) ft_strlen(str))
-		ft_lstcreat(&s_buff, fd, str + i + 1);
+	if (i + 1 < (int)ft_strlen(str))
+		ft_lstcreat(g_buff, fd, str + i + 1);
 	return (copy);
 }
 
 int				get_next_line(const int fd, char **line)
 {
-	int		i;
-	char	str[BUFF_SIZE + 1];
+	int				i;
+	char			str[BUFF_SIZE + 1];
+	static t_buff	*g_buff;
 
 	if (!line)
 		return (-1);
-	if (*line)
-		free(*line);
-	*line = NULL;
-	if (out_buff(fd, line) == 1)
+	if (out_buff(fd, line, &g_buff) == 1)
 		return (1);
 	while (1)
 	{
-		if ((i = read(fd, str, BUFF_SIZE)) < 0 )
+		if ((i = read(fd, str, BUFF_SIZE)) < 0)
 			return (-1);
 		if (i == 0)
 			return (ft_strlen(*line) != 0);
-		*line = in_buff(fd, line, str, &i);
+		str[i] = '\0';
+		*line = in_buff(fd, line, str, &g_buff);
+		i = 0;
+		while (str[i] != '\n' && str[i] != EOF)
+			i++;
 		if (i < BUFF_SIZE)
 			return (1);
 	}
