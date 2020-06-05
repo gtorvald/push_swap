@@ -30,27 +30,27 @@ int		check_nums(t_stack *a, t_stack *b, int count)
 
 void	read_comands_write_result(t_stack *a, t_stack *b, int count)
 {
-	char	*comand;
+	char	*cmd;
 	int		i;
 
-	comand = NULL;
 	i = 0;
-	while (get_next_line(0, &comand))
-		if (ft_strcmp(comand, "sa") && ft_strcmp(comand, "sb") &&
-		ft_strcmp(comand, "ss") && ft_strcmp(comand, "pa") &&
-		ft_strcmp(comand, "pb") && ft_strcmp(comand, "ra") &&
-		ft_strcmp(comand, "rb") && ft_strcmp(comand, "rr") &&
-		ft_strcmp(comand, "rra") && ft_strcmp(comand, "rrb") &&
-		ft_strcmp(comand, "rrr"))
+	while (get_next_line(0, &cmd))
+	{
+		if (ft_strcmp(cmd, "sa") && ft_strcmp(cmd, "sb") &&
+		ft_strcmp(cmd, "ss") && ft_strcmp(cmd, "pa") && ft_strcmp(cmd, "pb")
+		&& ft_strcmp(cmd, "ra") && ft_strcmp(cmd, "rb") && ft_strcmp(cmd, "rr")
+		&& ft_strcmp(cmd, "rra") && ft_strcmp(cmd, "rrb") &&
+		ft_strcmp(cmd, "rrr"))
 		{
 			ft_putstr("Error\n");
-			free(comand);
+			free(cmd);
 			return ;
 		}
 		else
-			do_comand(a, b, comand, 0);
-	if (comand)
-		free(comand);
+			do_comand(a, b, cmd, 0);
+		free(cmd);
+	}
+	free(cmd);
 	if (check_nums(a, b, count))
 		ft_putstr("KO\n");
 	else
