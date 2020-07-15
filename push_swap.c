@@ -36,11 +36,41 @@ void	part_of_main_algorithm(t_stack *a, t_stack *b)
 	}
 }
 
+void	do_three_algorithm(t_stack *a)
+{
+	if (a->nums[0] < a->nums[2] && a->nums[2] < a->nums[1])
+	{
+		do_comand(a, 0, "ra", 1);
+		do_comand(a, 0, "sa", 1);
+		do_comand(a, 0, "rra", 1);
+	}
+	else if (a->nums[1] < a->nums[0] && a->nums[0] < a->nums[2])
+		do_comand(a, 0, "sa", 1);
+	else if (a->nums[1] < a->nums[2] && a->nums[2] < a->nums[0])
+		do_comand(a, 0, "ra", 1);
+	else if (a->nums[2] < a->nums[0] && a->nums[0] < a->nums[1])
+	{
+		do_comand(a, 0, "ra", 1);
+		do_comand(a, 0, "ra", 1);
+	}
+	else if (a->nums[2] < a->nums[1] && a->nums[1] < a->nums[0])
+	{
+		do_comand(a, 0, "sa", 1);
+		do_comand(a, 0, "ra", 1);
+		do_comand(a, 0, "ra", 1);
+	}
+}
+
 void	do_main_algorithm(t_stack *a, t_stack *b)
 {
 	int		i;
 	int		min;
 
+	if (a->size == 3)
+	{
+		do_three_algorithm(a);
+		return ;
+	}
 	i = 0;
 	while (i++ < a->size)
 		a->stats[i] = 0;

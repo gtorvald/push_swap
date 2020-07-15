@@ -12,6 +12,25 @@
 
 #include "includes/push_swap.h"
 
+int		find_place(int *nums, int size, int num)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (i == 0)
+		{
+			if (nums[size - 1] < num && nums[0] > num)
+				break ;
+		}
+		else if (nums[i - 1] < num && nums[i] > num)
+			break ;
+		i++;
+	}
+	return (i);
+}
+
 int		find_min(int *nums, int size)
 {
 	int		min;
@@ -28,53 +47,56 @@ int		find_min(int *nums, int size)
 	return (min);
 }
 
-int		do_long_list(t_stack *a, signed char **stats, int num)
+int		get_stats(int *p, int *d, t_stack *a, int old_len)
 {
-	int		i;
-	int		len;
+	int i;
+	int max;
+	int max_index;
 
-	len = 1;
+	i = 0;
+	max = 0;
+	max_index = 0;
+	while (i < a->size)
+		if (p[i++] > max)
+		{
+			max = p[i - 1];
+			max_index = i - 1;
+		}
+	if (max <= old_len)
+		return (max);
 	i = 0;
 	while (i < a->size)
-		(*stats)[i++] = 0;
-	(*stats)[num] = 1;
-	i = num + 1;
-	while (i < a->size)
+		a->stats[i++] = 0;
+	while (max_index != -1)
 	{
-		if (a->nums[i] > a->nums[num])
-		{
-			(*stats)[i] = 1;
-			len++;
-			num = i;
-		}
-		i++;
+		a->stats[max_index] = 1;
+		max_index = d[max_index];
 	}
-	return (len);
+	return (max);
 }
 
 int		do_longest_list(t_stack *a, int old_len)
 {
-	int			i;
-	int			j;
-	signed char	*stats;
-	int			len1;
-	int			len;
+	int	p[a->size];
+	int	d[a->size];
+	int i;
+	int j;
 
-	len = old_len;
 	i = 0;
-	while (i < a->size - len)
+	while (i < a->size)
 	{
-		stats = malloc(sizeof(signed char) * a->size);
-		if ((len1 = do_long_list(a, &stats, i++)) > len)
-		{
-			j = 0;
-			while (j++ < a->size)
-				a->stats[j - 1] = stats[j - 1];
-			len = len1;
-		}
-		free(stats);
+		d[i] = -1;
+		p[i] = 1;
+		j = 0;
+		while (j < i)
+			if (a->nums[j++] < a->nums[i] && 1 + p[j - 1] > p[i])
+			{
+				p[i] = p[j - 1] + 1;
+				d[i] = j - 1;
+			}
+		i++;
 	}
-	return (len);
+	return (get_stats(p, d, a, old_len));
 }
 
 int		check_status(signed char *stats, int size)

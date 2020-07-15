@@ -24,24 +24,24 @@ int		steps_in_a(t_stack *a, int num)
 	int		i;
 	int		steps;
 
-	if (a->nums[0] > num)
-	{
-		i = a->size - 1;
-		while (a->nums[i] > num && i >= 0)
-			i--;
-		if (i == -1)
-			return (find_min(a->nums, a->size));
-	}
+	i = 0;
+	while (i < a->size && num < a->nums[i])
+		i++;
+	if (i == a->size)
+		i = find_min(a->nums, a->size);
 	else
 	{
 		i = 0;
-		while (a->nums[i] < num)
+		while (i < a->size && num > a->nums[i])
 			i++;
-		i--;
+		if (i == a->size)
+			i = find_min(a->nums, a->size);
+		else
+			i = find_place(a->nums, a->size, num);
 	}
-	steps = i + 1;
-	if (i + 1 > a->size - i - 1)
-		steps = a->size - i - 1;
+	steps = i;
+	if (i > a->size - i)
+		steps = a->size - i;
 	return (steps);
 }
 
@@ -54,7 +54,7 @@ int		choose_element(t_stack *a, t_stack *b)
 
 	i = 0;
 	index = 0;
-	step = b->size;
+	step = INT_MAX;
 	while (i < b->size)
 	{
 		if ((step1 = steps_in_a(a, b->nums[i]) + steps_in_b(b->size, i)) < step)
@@ -70,29 +70,29 @@ int		choose_element(t_stack *a, t_stack *b)
 void	prepare_stack_a(t_stack *a, int num)
 {
 	int		i;
-	int		steps;
 	int		j;
 
-	if (a->nums[0] > num)
-	{
-		i = a->size - 1;
-		while (a->nums[i] > num)
-			i--;
-	}
+	i = 0;
+	while (i < a->size && num < a->nums[i])
+		i++;
+	if (i == a->size)
+		i = find_min(a->nums, a->size);
 	else
 	{
 		i = 0;
-		while (a->nums[i] < num)
+		while (i < a->size && num > a->nums[i])
 			i++;
-		i--;
+		if (i == a->size)
+			i = find_min(a->nums, a->size);
+		else
+			i = find_place(a->nums, a->size, num);
 	}
 	j = 0;
-	steps = steps_in_a(a, num);
-	if (i + 1 > a->size - i - 1)
-		while (j++ < steps)
+	if (i > a->size - i)
+		while (j++ < a->size - i)
 			do_comand(a, 0, "rra", 1);
 	else
-		while (j++ < steps)
+		while (j++ < i)
 			do_comand(a, 0, "ra", 1);
 }
 

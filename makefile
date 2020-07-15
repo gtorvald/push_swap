@@ -34,7 +34,7 @@ $(NAME): $(OBJS) $(CH_MAIN) $(PSH_MAIN)
 	$(CC) $(FLAGS) $(OBJS) $(CH_MAIN) $(USE_LIB) -o $(CHECK)
 	$(CC) $(FLAGS) $(OBJS) $(PSH_MAIN) $(USE_LIB) -o $(PUSH)
 
-%.o : %.c
+%.o : %.c includes/%.h
 	$(CC) $(FLAGS) -c $<
 
 clean:
