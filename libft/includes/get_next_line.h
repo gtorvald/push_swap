@@ -10,27 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECKER_H
-# define CHECKER_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-# include "../libft/includes/get_next_line.h"
-# include "../libft/includes/printf.h"
 # include <stdlib.h>
+# include <unistd.h>
+# include "printf.h"
+# define BUFF_SIZE 3
+# define EOF (-1)
 
-# define INT_MAX 2147483647
-
-typedef struct	s_stack
+typedef struct		s_buff
 {
-	int			*nums;
-	signed char	*stats;
-	int			size;
-}				t_stack;
+	char			buff[BUFF_SIZE + 1];
+	int				fd;
+	struct s_buff	*next;
+}					t_buff;
 
-void			free_stacks(t_stack **a, t_stack **b, char ***tab, int argc);
-void			do_comand(t_stack *a, t_stack *b, char *comand, int flag);
-int				check_str(char *str);
-t_stack			*make_stack(int argc, char **argv);
-t_stack			*check_and_make_stack(int argc, char **argv);
-int				check_nums_in_stack(t_stack *a);
+int					get_next_line(const int fd, char **line);
 
 #endif

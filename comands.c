@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/get_next_line.h"
+#include "libft/includes/get_next_line.h"
 #include "includes/checker.h"
 
 void	do_comand_sasb(t_stack *a, t_stack *b)

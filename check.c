@@ -16,12 +16,12 @@ int		check_str(char *str)
 {
 	int		flag;
 
-	if (ft_strlen(str + (*str == '-')) < 10)
+	if (ft_strlen(str) - (*str == '-' || *str == '+') < 10)
 		return (0);
-	if (ft_strlen(str + (*str == '-')) > 10)
+	if (ft_strlen(str) - (*str == '-' || *str == '+') > 10)
 		return (1);
 	flag = *str == '-';
-	str += flag;
+	str += flag || *str == '+';
 	if (str[0] >= '2')
 		if (str[1] >= '1')
 			if (str[2] >= '4')
@@ -31,7 +31,7 @@ int		check_str(char *str)
 							if (str[6] >= '3')
 								if (str[7] >= '6')
 									if (str[8] >= '4')
-										if (str[9] > '7'
+										if ((!flag && str[9] > '7')
 										|| (flag && str[9] > '8'))
 											return (1);
 	return (0);
@@ -54,7 +54,7 @@ t_stack	*make_stack(int argc, char **argv)
 		if (argv && check_str(argv[i - 1]))
 		{
 			free_stacks(&a, 0, 0, 0);
-			ft_putstr("Error\n");
+			write(2, "Error\n", 6);
 			return (0);
 		}
 		if (!argv)
@@ -77,11 +77,17 @@ t_stack	*check_and_make_stack(int argc, char **argv)
 		{
 			j = 0;
 			while (argv[i][j] != '\0')
-				if (!ft_isdigit(argv[i][j++]))
+			{
+				if ((j == 0 && !ft_isdigit(argv[i][j]) && argv[i][j] != '-' &&
+				argv[i][j] != '+') || (j != 0 && !ft_isdigit(argv[i][j])) ||
+				((argv[i][j] == '-' || argv[i][j] == '+') &&
+				ft_strlen(argv[i]) == 1))
 				{
-					ft_putstr("Error\n");
+					write(2, "Error\n", 6);
 					return (0);
 				}
+				j++;
+			}
 			i++;
 		}
 	}
@@ -100,7 +106,7 @@ int		check_nums_in_stack(t_stack *a)
 		while (j < i)
 			if (a->nums[i] == a->nums[j++])
 			{
-				ft_putstr("Error\n");
+				write(2, "Error\n", 6);
 				return (1);
 			}
 		i++;

@@ -66,7 +66,7 @@ char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 int					count_str(char const *s, char c);
-char				*ft_itoa(long long int n);
+char				*ft_itoa(int n);
 void				ft_putendl(char const *s);
 void				ft_putnbr(int n);
 void				ft_putchar_fd(char c, int fd);
@@ -93,7 +93,5 @@ int					ft_iscntrl(int c);
 int					ft_islower(int c);
 int					ft_ispunct(int c);
 int					ft_isspace(int c);
-
-int					ft_printf(const char *restrict format, ...);
 
 #endif

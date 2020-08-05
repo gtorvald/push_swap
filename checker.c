@@ -42,7 +42,7 @@ void	read_comands_write_result(t_stack *a, t_stack *b, int count)
 		&& ft_strcmp(cmd, "rra") && ft_strcmp(cmd, "rrb") &&
 		ft_strcmp(cmd, "rrr"))
 		{
-			ft_putstr("Error\n");
+			write(2, "Error\n", 6);
 			free(cmd);
 			return ;
 		}
@@ -64,21 +64,24 @@ int		main(int argc, char **argv)
 	char	**tab;
 	int		count;
 
+	count = argc - 1;
+	tab = argv + 1;
 	if (argc == 2)
 	{
 		count = count_str(argv[1], ' ');
 		tab = ft_strsplit(argv[1], ' ');
 	}
-	else
+	if (argc == 1 || (argc != 2 && count == 0) ||
+	!(a = check_and_make_stack(count, tab)))
 	{
-		count = argc - 1;
-		tab = argv + 1;
-	}
-	if (argc == 1 || count == 0 || !(a = check_and_make_stack(count, tab)))
+		free_stacks(0, 0, &tab, argc);
 		return (1);
+	}
 	b = make_stack(count, 0);
-	if (!check_nums_in_stack(a))
+	if ((argc != 2 || count != 0) && !check_nums_in_stack(a))
 		read_comands_write_result(a, b, count);
+	if (argc == 2 && count == 0)
+		write(2, "Error\n", 6);
 	free_stacks(&a, &b, &tab, argc);
 	return (0);
 }
